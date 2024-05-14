@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { HiBars3BottomRight, HiEllipsisVertical } from "react-icons/hi2";
 import { GifState } from "../Context/gifContext";
+import GifSearch from "./GifSearch";
 
 function Header() {
   const [categories, setCategories] = useState([]);
@@ -66,13 +67,16 @@ function Header() {
           <hr className="bg-slate-700 opacity-70 my-4" />
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
             {categories.map((category, index) => (
-              <Link key={category.name} to={`/${category.name_encoded}`}>
+              <Link key={category.name} to={`/${category?.name_encoded}`}>
                 {category.name}
               </Link>
             ))}
           </div>
         </section>
       )}
+
+      {/* Search */}
+      <GifSearch />
     </nav>
   );
 }
