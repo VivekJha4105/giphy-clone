@@ -22,7 +22,7 @@ function GifSearch() {
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="w-full rounded-bl rounded-tl py-4 px-8 text-slate-600 outline-none border-slate-800 font-semibold"
+        className="w-full rounded-bl rounded-tl py-2 sm:py-4 px-4 sm:px-8 text-slate-600 text-md sm:text-lg md:text-xl outline-none border-slate-800 font-semibold"
         placeholder="Search all the Gifs and Stickers"
       />
       {query && (

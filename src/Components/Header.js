@@ -8,7 +8,7 @@ function Header() {
   const [categories, setCategories] = useState([]);
   const [showCategories, setShowCategories] = useState(false);
 
-  const { gf, filter, setFilter, gifs, setGifs, favorites } = GifState();
+  const { gf, favorites } = GifState();
 
   const fetchGifCategories = async () => {
     try {
@@ -19,7 +19,6 @@ function Header() {
     }
   };
 
-  console.log(categories);
   useEffect(() => {
     fetchGifCategories();
   }, []);
@@ -29,7 +28,7 @@ function Header() {
       <div className="relative flex justify-between items-center mb-2">
         <Link to="/" className="flex gap-2">
           <img src="/logo.svg" alt="Logo" className="w-8" />
-          <h1 className="text-5xl font-bold tracking-tight cursor-pointer">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight cursor-pointer">
             GIPHY
           </h1>
         </Link>
@@ -51,7 +50,7 @@ function Header() {
           >
             <HiEllipsisVertical size={28} />
           </button>
-          {favorites.length > 0 && (
+          {favorites?.length > 0 && (
             <button className="px-4 py-2 bg-slate-700 text-white rounded">
               <Link to="/favorites">Favorite Gifs</Link>
             </button>

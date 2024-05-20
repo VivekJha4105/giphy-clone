@@ -4,7 +4,7 @@ import Gif from "../Components/Gif";
 import FilterGifs from "../Components/FilterGifs";
 
 function Home() {
-  const { gf, filter, setFilter, gifs, setGifs, favorites } = GifState();
+  const { gf, filter, gifs, setGifs } = GifState();
 
   const fetchTrendingGifs = async () => {
     try {
@@ -19,8 +19,6 @@ function Home() {
       console.error(error);
     }
   };
-
-  console.log(gifs);
 
   useEffect(() => {
     fetchTrendingGifs();

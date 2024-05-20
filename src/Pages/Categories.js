@@ -7,17 +7,15 @@ import { ImSpinner8 } from "react-icons/im";
 function Categories() {
   const { category } = useParams();
   const [results, setResults] = useState([]);
-  const { gf, filter } = GifState();
+  const { gf } = GifState();
   const [loading, setLoading] = useState(false);
 
   const fetchGifByCategory = async () => {
     try {
-      // console.log("called");
       setLoading(true);
       const { data } = await gf.gifs(category, category);
       setResults(data);
       setLoading(false);
-      // console.log(data, " data");
     } catch (error) {
       setLoading(false);
       console.error(error);
