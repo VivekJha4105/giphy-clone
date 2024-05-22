@@ -25,3 +25,7 @@ Planning the Website:
 - Using react context API for managing and providing state across all the components.
 - Using Local Storage for saving up the favorites data.
 - Using react-icons for rendering icons.
+
+# More to do..
+- Need to implement sharing and embed functionality.
+- More little details to add in.
