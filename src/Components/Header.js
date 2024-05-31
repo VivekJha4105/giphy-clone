@@ -7,6 +7,7 @@ import GifSearch from "./GifSearch";
 function Header() {
   const [categories, setCategories] = useState([]);
   const [showCategories, setShowCategories] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { gf, favorites } = GifState();
 
@@ -47,26 +48,59 @@ function Header() {
           <button
             className="p-0.5 hover:gradient border-b-4 text-xl hidden lg:block"
             onClick={() => setShowCategories(!showCategories)}
+            // onBlur={() => setShowCategories(!showCategories)}
           >
             <HiEllipsisVertical size={28} />
           </button>
           {favorites?.length > 0 && (
-            <button className="px-4 py-2 bg-slate-700 text-white rounded">
+            <button className="px-4 py-2 text-xs sm:text-lg bg-slate-700 text-white rounded">
               <Link to="/favorites">Favorite Gifs</Link>
             </button>
           )}
-          <button className="text-sky-400 block lg:hidden">
-            <HiBars3BottomRight size={30} />
-          </button>
+          <div className="relative">
+            <button
+              className="text-sky-400 block lg:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <HiBars3BottomRight size={30} />
+            </button>
+            {isMenuOpen && (
+              <div className="absolute z-30 mt-3 -left-10 flex flex-col items-center bg-slate-500 text-white rounded-lg">
+                {categories?.slice(0, 4).map((category, index) => (
+                  <Link
+                    key={category.name}
+                    to={`/${category?.name_encoded}`}
+                    className="hover:gradient w-full px-4 py-2"
+                  >
+                    {category.name}
+                  </Link>
+                ))}
+                <span
+                  className="hover:gradient w-full px-4 py-2"
+                  onClick={() => {
+                    setShowCategories(!showCategories);
+                    setIsMenuOpen(!isMenuOpen);
+                  }}
+                >
+                  More+
+                </span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       {showCategories && (
-        <section className="absolute w-[95%] px-6 py-4  gradient z-10 font-bold opacity-100">
+        <section className="absolute lg:w-[85%] px-6 py-4  gradient z-10 font-bold opacity-100 transition-all">
           <span className="text-3xl font-extrabold">Categories</span>
           <hr className="bg-slate-700 opacity-70 my-4" />
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
             {categories.map((category, index) => (
-              <Link key={category.name} to={`/${category?.name_encoded}`}>
+              <Link
+                key={category.name}
+                to={`/${category?.name_encoded}`}
+                className="text-slate-300 hover:text-white"
+                onClick={() => setShowCategories(!showCategories)}
+              >
                 {category.name}
               </Link>
             ))}

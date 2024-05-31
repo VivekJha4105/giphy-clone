@@ -16,12 +16,22 @@ function GifSearch() {
     navigate(`/search/${query}`);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13 && query.length > 2) {
+      console.log("called in if");
+      searchGifs();
+    } else {
+      return;
+    }
+  };
+
   return (
     <div className="relative flex">
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={handleKeyDown}
         className="w-full rounded-bl rounded-tl py-2 sm:py-4 px-4 sm:px-8 text-slate-600 text-md sm:text-lg md:text-xl outline-none border-slate-800 font-semibold"
         placeholder="Search all the Gifs and Stickers"
       />
