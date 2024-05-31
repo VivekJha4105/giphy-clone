@@ -10,6 +10,7 @@ import {
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { FaPaperPlane } from "react-icons/fa";
 import { IoCodeSharp } from "react-icons/io5";
+import ShareModal from "../Components/ShareModal";
 
 const contentType = ["gif", "sticker", "text"];
 
@@ -18,6 +19,7 @@ function SingleGif() {
   const [gif, setGif] = useState();
   const [relatedGifs, setRelatedGifs] = useState([]);
   const [readMore, setReadMore] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { gf, favorites, addToFavorites } = GifState();
 
   const getSingleGif = async () => {
@@ -33,6 +35,10 @@ function SingleGif() {
     }
   };
 
+  const shareGif = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   useEffect(() => {
     if (!contentType.includes(type)) {
       throw new Error("Invalid Content Type");
@@ -41,14 +47,18 @@ function SingleGif() {
   }, []);
 
   return (
-    <div className="grid grid-cols-4 gap-2 my-6">
+    <div
+      className={`relative grid grid-cols-4 gap-2 my-6 ${
+        isModalOpen ? "" : ""
+      }`}
+    >
       <section className="hidden sm:block">
         {gif?.user && (
           <>
             <div className="flex gap-2 sm:hidden md:block">
               <img
-                src={gif?.user?.avatar_url}
-                alt={gif?.user?.display_name}
+                src={gif?.user?.avatar_url || "No Display"}
+                alt={gif?.user?.display_name || "No Name"}
                 className="h-14"
               />
               <div className="py-2">
@@ -58,7 +68,7 @@ function SingleGif() {
                 </p>
               </div>
             </div>
-            {gif?.user?.description && (
+            {gif?.user?.description ? (
               <p className="text-sm whitespace-pre-line py-2 text-slate-300">
                 {readMore
                   ? gif?.user?.description
@@ -79,6 +89,8 @@ function SingleGif() {
                   )}
                 </div>
               </p>
+            ) : (
+              "No Description"
             )}
             <hr />
             {gif?.source && (
@@ -119,7 +131,7 @@ function SingleGif() {
               <div className="py-2">
                 <p className="font-bold">{gif?.user?.display_name}</p>
                 <p className="text-slate-400 hover:text-white transition-all">
-                  @{gif?.user?.username}
+                  @{gif?.user?.username || "No_Username"}
                 </p>
               </div>
               <button
@@ -146,7 +158,7 @@ function SingleGif() {
             </button>
             <button
               className="flex font-bold items-center gap-2 "
-              // onClick={shareGif}
+              onClick={shareGif}
             >
               <FaPaperPlane size={25} />
               Share
@@ -171,6 +183,12 @@ function SingleGif() {
           </div>
         </div>
       </section>
+
+      {/* Modal Open on Share */}
+
+      {isModalOpen && (
+        <ShareModal closeModal={() => setIsModalOpen(!isModalOpen)} />
+      )}
     </div>
   );
 }
