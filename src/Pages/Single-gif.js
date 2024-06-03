@@ -20,6 +20,7 @@ function SingleGif() {
   const [relatedGifs, setRelatedGifs] = useState([]);
   const [readMore, setReadMore] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isShare, setIsShare] = useState(true);
   const { gf, favorites, addToFavorites } = GifState();
 
   const getSingleGif = async () => {
@@ -36,6 +37,12 @@ function SingleGif() {
   };
 
   const shareGif = () => {
+    setIsShare(true);
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const embedGif = () => {
+    setIsShare(false);
     setIsModalOpen(!isModalOpen);
   };
 
@@ -134,10 +141,7 @@ function SingleGif() {
                   @{gif?.user?.username || "No_Username"}
                 </p>
               </div>
-              <button
-                className="ml-auto"
-                // onClick={shareGif}
-              >
+              <button className="ml-auto" onClick={shareGif}>
                 <FaPaperPlane size={25} />
               </button>
             </div>
@@ -147,7 +151,7 @@ function SingleGif() {
 
           <div className="hidden sm:flex flex-col gap-4 mx-auto text-2xl">
             <button
-              className="flex font-bold items-center gap-2"
+              className="flex font-bold items-center gap-2 py-1 px-2 rounded-lg hover:bg-gradient-to-r from-red-500 to-teal-400 transition-all"
               onClick={() => addToFavorites(gif?.id)}
             >
               <HiMiniHeart
@@ -157,15 +161,15 @@ function SingleGif() {
               Favorites
             </button>
             <button
-              className="flex font-bold items-center gap-2 "
+              className="flex font-bold items-center gap-2 py-1 px-2 rounded-lg hover:bg-gradient-to-r from-red-500 to-teal-400 transition-all"
               onClick={shareGif}
             >
               <FaPaperPlane size={25} />
               Share
             </button>
             <button
-              className="flex font-bold items-center gap-2"
-              // onClick={embedGif}
+              className="flex font-bold items-center gap-2 py-1 px-2 rounded-lg hover:bg-gradient-to-r from-red-500 to-teal-400 transition-all"
+              onClick={embedGif}
             >
               <IoCodeSharp size={25} />
               Embed
@@ -187,7 +191,11 @@ function SingleGif() {
       {/* Modal Open on Share */}
 
       {isModalOpen && (
-        <ShareModal closeModal={() => setIsModalOpen(!isModalOpen)} />
+        <ShareModal
+          share={isShare}
+          closeModal={() => setIsModalOpen(!isModalOpen)}
+          gif={gif}
+        />
       )}
     </div>
   );
