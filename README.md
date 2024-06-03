@@ -27,5 +27,5 @@ Planning the Website:
 - Using react-icons for rendering icons.
 
 # More to do..
-- Need to implement sharing and embed functionality.
+- Need to implement sharing and embed functionality. (DONE)
 - More little details to add in.
