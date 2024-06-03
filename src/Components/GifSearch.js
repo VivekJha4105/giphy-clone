@@ -18,7 +18,6 @@ function GifSearch() {
 
   const handleKeyDown = (e) => {
     if (e.keyCode === 13 && query.length > 2) {
-      console.log("called in if");
       searchGifs();
     } else {
       return;
